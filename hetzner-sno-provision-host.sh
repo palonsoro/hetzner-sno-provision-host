@@ -21,7 +21,7 @@ INITRD_URL="$(awk '/^initrd/{print $NF}' discovery_ipxe_script.txt)"
 KERNEL_URL="$(awk '/^kernel/{print $2}' discovery_ipxe_script.txt)"
 KERNEL_CMDLINE="$(grep '^kernel' discovery_ipxe_script.txt  | cut -d' ' -f 3-)"
 
-curl -f -s -o kernel "${KERNEL_URL}"
-curl -f -s -o initrd "${INITRD_URL}"
+curl -L -f -s -o kernel "${KERNEL_URL}"
+curl -L -f -s -o initrd "${INITRD_URL}"
 
 kexec kernel --initrd=initrd --append="${KERNEL_CMDLINE}"
